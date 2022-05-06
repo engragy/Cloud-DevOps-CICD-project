@@ -237,7 +237,7 @@ jobs:
           command: |
             cd backend
             npm install
-            npm run build
+            # npm run build
             # fix vulnerabilities issues
             # npm audit fix --audit-level=critical --force
             # npm audit fix --force
@@ -270,12 +270,12 @@ workflows:
       # - scan-backend:
       #     requires: [build-backend]
       #     context: RASNIX-SLACK  # using created circleci organization context vars(my slack credentials)
-      - deploy-infrastructure:
-          # requires: [test-backend, scan-backend, test-frontend, scan-frontend]
-          filters:
-            branches:
-              only: [master]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
+      # - deploy-infrastructure:
+      #     # requires: [test-backend, scan-backend, test-frontend, scan-frontend]
+      #     filters:
+      #       branches:
+      #         only: [master]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      - run-migrations
+          # requires: [configure-infrastructure]
