@@ -227,7 +227,7 @@ jobs:
             echo "TYPEORM_ENTITIES=./src/modules/domain/*/.entity.ts" >> backend/.env
             echo "TYPEORM_MIGRATIONS=./src/migrations/*.ts" >> backend/.env
             echo "TYPEORM_HOST=udapeople-db.cwadvx79ixnb.us-east-1.rds.amazonaws.com" >> backend/.env
-            echo "TYPEORM_PORT=5432 (or the port from RDS if it’s different)" >> backend/.env
+            echo "TYPEORM_PORT=5432" >> backend/.env
             echo "TYPEORM_USERNAME=root" >> backend/.env
             echo "TYPEORM_PASSWORD=testing321" >> backend/.env
             echo "TYPEORM_DATABASE=db0001" >> backend/.env
@@ -270,12 +270,12 @@ workflows:
       # - scan-backend:
       #     requires: [build-backend]
       #     context: RASNIX-SLACK  # using created circleci organization context vars(my slack credentials)
-      # - deploy-infrastructure:
-      #     # requires: [test-backend, scan-backend, test-frontend, scan-frontend]
-      #     filters:
-      #       branches:
-      #         only: [master]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - deploy-infrastructure:
+          # requires: [test-backend, scan-backend, test-frontend, scan-frontend]
+          filters:
+            branches:
+              only: [master]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
       - run-migrations
-          # requires: [configure-infrastructure]
+          requires: [configure-infrastructure]
