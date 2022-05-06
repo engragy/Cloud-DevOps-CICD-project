@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AWS CloudFormation Template for creating an Amazon RDS DB instance
+
+Parameters:
+  dbInstClass:
+    Type: String
+    Default: db.t3.micro
+  dbStorage:
+    Type: String
+    Default: 20
+  dbRoot:
+    Type: String
+    Default: root
+  dbRootPass:
+    Type: String
+    Default: testing321
+  defaultVPCID:
+    Type: String
+    Default: vpc-05d81077abb660db4
+
+
+Resources:
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow database connection
+      VpcId: !Ref defaultVPCID
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+
+  MyDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: udapeople-DB
+      DBName: db0001
+      DBInstanceClass: !Ref dbInstClass
+      AllocatedStorage: !Ref dbStorage 
+      Engine: postgres
+      MasterUsername: !Ref dbRoot
+      MasterUserPassword: !Ref dbRootPass
+      VPCSecurityGroups:
+        - Ref: DBSecurityGroup
+      # DBSubnetGroupName: !Ref MyDBSubnetGruop
+      PubliclyAccessible: true
+      MultiAZ: false
+      AutoMinorVersionUpgrade: true
+      # DeletionProtection: true
