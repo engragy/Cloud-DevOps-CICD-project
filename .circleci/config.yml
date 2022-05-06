@@ -180,7 +180,8 @@ jobs:
           fingerprints:
             - "8c:ce:93:49:43:3e:24:b0:7d:4f:10:77:9f:c1:05:77"
       - attach_workspace:
-          at: ~/      - run:
+          at: ~/
+      - run:
           name: check workspace saved files
           command: |
             ls -la
