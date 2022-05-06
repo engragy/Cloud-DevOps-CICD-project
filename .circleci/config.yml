@@ -224,9 +224,11 @@ workflows:
   #         requires: [deploy-infrastructure]
   tst:
     jobs:
-      # - deploy-infrastructure:
-      #     filters:
-      #       branches:
-      #         only: [master]
+      # - build-frontend
+      # - build-backend
+      - deploy-infrastructure:
+          filters:
+            branches:
+              only: [master]
       - configure-infrastructure:
-          # requires: [deploy-infrastructure]
+          requires: [deploy-infrastructure]
