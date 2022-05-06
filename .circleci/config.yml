@@ -182,12 +182,6 @@ jobs:
       - attach_workspace:
           at: ~/  # adds copied ~/.circleci/ansible/inventory.txt to same place (i.e overrites file in repo)
       - run:
-          name: check workspace saved files
-          command: |
-            ls -la
-            pwd
-            cat .circleci/ansible/inventory.txt
-      - run:
           name: Install dependencies
           command: |
             sudo apt update
@@ -209,21 +203,22 @@ jobs:
   run-migrations:
     docker:
       - image: circleci/node:13.8.0
-      # - image: cimg/node:18.0.0
     steps:
       - checkout
       - attach_workspace:
           at: ~/  # adds copied ~/.circleci/ansible/inventory.txt to same place (i.e overrites file in repo)
       - run:
-          name: install aws
+          name: install dependencies
           command: |
+            sudo apt update
+            sudo apt install python3
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             sudo apt install unzip
             unzip awscliv2.zip
             sudo ./aws/install
       - run:
           name: add values to .env
-          cpmmand: |
+          command: |
             touch backend/.env
             echo "TYPEORM_CONNECTION=postgres" >> backend/.env
             echo "TYPEORM_MIGRATIONS_DIR=./src/migrations" >> backend/.env
@@ -262,8 +257,8 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
+      # - build-frontend
+      # - build-backend
       # - test-frontend:
       #     requires: [build-frontend]
       # - test-backend:
