@@ -221,17 +221,22 @@ jobs:
           name: add values to .env
           command: |
             touch backend/.env
-            echo "ENVIRONMENT=production" >> backend/.env
-            echo "TYPEORM_CONNECTION=postgres" >> backend/.env
-            echo "TYPEORM_MIGRATIONS_DIR=./src/migrations" >> backend/.env
-            echo "TYPEORM_ENTITIES=./src/modules/domain/*/.entity.ts" >> backend/.env
-            echo "TYPEORM_MIGRATIONS=./src/migrations/*.ts" >> backend/.env
-            echo "TYPEORM_HOST=udapeople-db.cwadvx79ixnb.us-east-1.rds.amazonaws.com" >> backend/.env
-            echo "TYPEORM_PORT=5432" >> backend/.env
-            echo "TYPEORM_USERNAME=root" >> backend/.env
-            echo "TYPEORM_PASSWORD=testing321" >> backend/.env
-            echo "TYPEORM_DATABASE=db0001" >> backend/.env
-            cat backend/.env
+            echo ENVIRONMENT=production >> backend/.env
+            echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> backend/.env
+            echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> backend/.env
+            echo TYPEORM_ENTITIES=$TYPEORM_ENTITIES >> backend/.env
+            echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> backend/.env
+            echo TYPEORM_HOST=$TYPEORM_HOST >> backend/.env
+            echo TYPEORM_PORT=$TYPEORM_PORT >> backend/.env
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> backend/.env
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
+            
+            echo $TYPEORM_HOST
+            echo $TYPEORM_PORT
+            echo $TYPEORM_USERNAME
+            echo $TYPEORM_PASSWORD
+            echo $TYPEORM_DATABASE
       - run:
           name: Run migrations
           command: |
