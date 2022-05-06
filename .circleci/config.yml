@@ -220,7 +220,7 @@ jobs:
       - run:
           name: add values to .env
           command: |
-            echo touch backend/.env
+            touch backend/.env
             echo NODE_ENV=local >> backend/.env
             echo VERSION=1 >> backend/.env
             echo ENVIRONMENT=production >> backend/.env
