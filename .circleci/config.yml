@@ -150,14 +150,14 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-      # - run:
-      #     name: Ensure front-end infrastructure exist
-      #     command: |
-      #       aws cloudformation deploy \
-      #         --template-file .circleci/files/frontend.yml \
-      #         --tags project=udapeople \
-      #         --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-      #         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+      - run:
+          name: Ensure front-end infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/frontend.yml \
+              --tags project=udapeople \
+              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -180,7 +180,7 @@ jobs:
           fingerprints:
             - "8c:ce:93:49:43:3e:24:b0:7d:4f:10:77:9f:c1:05:77"
       - attach_workspace:
-          at: ~/
+          at: ~/  # adds copied ~/.circleci/ansible/inventory.txt to same place (i.e overrites file in repo)
       - run:
           name: check workspace saved files
           command: |
@@ -192,6 +192,12 @@ jobs:
           command: |
             sudo apt update
             sudo apt install ansible
+            # install aws
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            sudo apt install unzip
+            unzip awscliv2.zip
+            sudo ./aws/install
+
       - run:
           name: Configure server
           command: |
@@ -202,31 +208,21 @@ jobs:
       - destroy-environment  # rollback on failure
 
 workflows:
-  # default:
-  #   jobs:
-  #     - build-frontend
-  #     - build-backend
-  #     - test-frontend:
-  #         requires: [build-frontend]
-  #     - test-backend:
-  #         requires: [build-backend]
-  #     - scan-frontend:
-  #         requires: [build-frontend]
-  #     - scan-backend:
-  #         requires: [build-backend]
-  #         context: RASNIX-SLACK  # using created circleci organization context vars(my slack credentials)
-  #     - deploy-infrastructure:
-  #         requires: [test-backend, scan-backend, test-frontend, scan-frontend]
-  #         filters:
-  #           branches:
-  #             only: [master]
-  #     - configure-infrastructure:
-  #         requires: [deploy-infrastructure]
-  tst:
+  default:
     jobs:
-      # - build-frontend
-      # - build-backend
+      - build-frontend
+      - build-backend
+      - test-frontend:
+          requires: [build-frontend]
+      - test-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - scan-backend:
+          requires: [build-backend]
+          context: RASNIX-SLACK  # using created circleci organization context vars(my slack credentials)
       - deploy-infrastructure:
+          requires: [test-backend, scan-backend, test-frontend, scan-frontend]
           filters:
             branches:
               only: [master]
