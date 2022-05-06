@@ -1,5 +1,5 @@
 # Project Solution Screenshots
-[URL01 - project repository](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/.circleci)
+[URL01 - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/.circleci)
 
 ***
 #### 1. Utilize Deployment Strategies to design and build CI/CD pipelines that support Continuous Delivery processes.
@@ -15,3 +15,5 @@
 		- Slack notification ![SCREENSHOT04](SCREENSHOT04 - Slack notification.png)
 		- Email notification ![SCREENSHOT04](SCREENSHOT04 - Email notification.png)
 
+***
+#### 2. Utilize a Configuration Management Tool to Accomplish Deployment to Cloud-Based Servers
