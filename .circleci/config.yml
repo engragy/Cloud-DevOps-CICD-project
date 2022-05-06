@@ -150,14 +150,14 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-      - run:
-          name: Ensure front-end infrastructure exist
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/files/frontend.yml \
-              --tags project=udapeople \
-              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+      # - run:
+      #     name: Ensure front-end infrastructure exist
+      #     command: |
+      #       aws cloudformation deploy \
+      #         --template-file .circleci/files/frontend.yml \
+      #         --tags project=udapeople \
+      #         --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+      #         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -168,7 +168,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - .circleci/ansible/inventory.txt
+            - project/.circleci/ansible/inventory.txt
       - destroy-environment  # rollback on failure
 
   configure-infrastructure:
@@ -186,7 +186,6 @@ jobs:
           command: |
             ls -la
             pwd
-            cat inventory.txt
             cat .circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
@@ -196,7 +195,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cp ~/inventory.txt project/.circleci/ansible/inventory.txt
+            # cp ~/inventory.txt project/.circleci/ansible/inventory.txt
             cd project/.circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
@@ -225,8 +224,8 @@ workflows:
   #         requires: [deploy-infrastructure]
   tst:
     jobs:
-      - build-frontend
-      - build-backend
+      # - build-frontend
+      # - build-backend
       - deploy-infrastructure:
           # requires: [test-backend, scan-backend, test-frontend, scan-frontend]
           filters:
