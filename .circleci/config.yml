@@ -220,7 +220,9 @@ jobs:
       - run:
           name: add values to .env
           command: |
-            touch backend/.env
+            echo touch backend/.env
+            echo NODE_ENV=local >> backend/.env
+            echo VERSION=1 >> backend/.env
             echo ENVIRONMENT=production >> backend/.env
             echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> backend/.env
             echo TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR >> backend/.env
@@ -228,9 +230,9 @@ jobs:
             echo TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS >> backend/.env
             echo TYPEORM_HOST=$TYPEORM_HOST >> backend/.env
             echo TYPEORM_PORT=$TYPEORM_PORT >> backend/.env
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> backend/.env
-            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
             
             $TYPEORM_HOST
             $TYPEORM_PORT
