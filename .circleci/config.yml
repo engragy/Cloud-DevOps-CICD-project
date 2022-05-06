@@ -180,12 +180,12 @@ jobs:
           fingerprints:
             - "8c:ce:93:49:43:3e:24:b0:7d:4f:10:77:9f:c1:05:77"
       - attach_workspace:
-          at: ~/
+          at: ~/my-workspace
       - run:
           name: check workspace saved files
           command: |
             ls -la
-            cat inventory.txt
+            cat ~/my-workspace/inventory.txt
       - run:
           name: Install dependencies
           command: |
@@ -194,7 +194,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cp inventory.txt project/.circleci/ansible/inventory.txt
+            cp ~/my-workspace/inventory.txt project/.circleci/ansible/inventory.txt
             cd project/.circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
