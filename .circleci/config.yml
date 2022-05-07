@@ -14,9 +14,6 @@ commands:  # commands that can be reused as needed in any job
           name: Destroy environments
           when: on_fail
           command: |
-            # get events to check the failer
-            aws cloudformation describe-stack-events --stack-name udapeople-backend-<<parameters.workflow-id>>
-            # destroy the stacks
             aws cloudformation delete-stack --stack-name udapeople-backend-<<parameters.workflow-id>>
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.workflow-id>>
 
