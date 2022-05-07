@@ -15,6 +15,8 @@ commands:  # commands that can be reused as needed in any job
           when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name udapeople-backend-<<parameters.workflow-id>>
+            # empty and remove frontend S3 bucket
+            aws s3 rm s3://udapeople-<<parameters.workflow-id>> --recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.workflow-id>>
 
 
@@ -172,7 +174,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: circleci/python
+      - image: circleci/python  # image user=circleci, default working dir=/home/circleci/project
     steps:
       - checkout
       - add_ssh_keys:
@@ -286,7 +288,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: circleci/python
+      - image: circleci/python  # image user=circleci, default working dir=/home/circleci/project
     steps:
       - checkout
       - add_ssh_keys:
@@ -314,14 +316,35 @@ jobs:
             cd ..
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            pwd  # check this dir path
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            ansible-playbook -i inventory.txt deploy-backend.yml
+            ansible-playbook deploy-backend.yml
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
+  smoke-test:
+    docker:
+      - image: circleci/python  # image user=circleci, default working dir=/home/circleci/project
+    steps:
+      # Checkout code from git
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+      - run:
+          name: Get backend url
+          command: |
+            # your code here
+      - run:
+          name: Backend smoke test.
+          command: |
+            # your code here
+      - run:
+          name: Frontend smoke test.
+          command: |
+            # your code here
+      # Here's where you will add some code to rollback on failure  
 
 
 workflows:
