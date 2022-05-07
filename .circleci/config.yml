@@ -266,6 +266,7 @@ jobs:
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
             # use nvm to install Node.js
             . ~/.nvm/nvm.sh  # Activate nvm
+            nvm use --delete-prefix v18.1.0  # fix an issue
             nvm install node  # install the latest version of Node.js which installs (npm)
       - attach_workspace:  # attaching workspace needs tar (not installed by default)
           at: ~/  # adds copied ~/.circleci/ansible/inventory.txt to same place (i.e overrites file in repo)
