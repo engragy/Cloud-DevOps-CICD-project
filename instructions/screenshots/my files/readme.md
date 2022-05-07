@@ -1,5 +1,7 @@
 # Project Solution Screenshots
-[URL01 - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/.circleci)
+[URL01 - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
+
+[URL02 - public URL for your S3 Bucket (aka, your front-end)]()
 
 ***
 #### 1. Utilize Deployment Strategies to design and build CI/CD pipelines that support Continuous Delivery processes.
