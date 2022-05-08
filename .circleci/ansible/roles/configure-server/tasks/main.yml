@@ -14,12 +14,19 @@
   apt:
     autoremove: yes
 
+# - name: "install dependencies."
+#   become: yes
+#   apt:
+#     name: ["nodejs", "npm"]
+#     state: latest
+#     update_cache: yes
+
 - name: "install dependencies."
   become: yes
-  apt:
-    name: ["nodejs", "npm"]
-    state: latest
-    update_cache: yes
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_13.8 | sudo -E bash -
+    sudo apt install nodejs
+    sudo apt install build-essential
 
 - name: "install pm2"
   become: yes

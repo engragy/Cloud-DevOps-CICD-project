@@ -136,7 +136,7 @@ jobs:
             }
           event: fail
 
-  deploy-infrastructure:  # === CD - provision in AWS (frontend & backend)
+  deploy-infrastructure(backend) :  # === CD - provision in AWS
     docker:
       - image: amazon/aws-cli
     steps:
@@ -151,14 +151,6 @@ jobs:
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
       - run:
-          name: Ensure front-end infrastructure exist
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/files/frontend.yml \
-              --tags project=udapeople \
-              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
-      - run:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances \
@@ -169,6 +161,23 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+      - destroy-environment:  # rollback on failure
+          workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
+
+  deploy-infrastructure(frontend):  # === CD - provision in AWS
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: yum install -y tar gzip
+      - run:
+          name: Ensure front-end infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/frontend.yml \
+              --tags project=udapeople \
+              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
@@ -183,7 +192,7 @@ jobs:
       - attach_workspace:
           at: ~/  # adds copied ~/.circleci/ansible/inventory.txt to same place (i.e overrites file in repo)
       - run:
-          name: Install dependencies
+          name: Install dependencies  # tar, gzip, ansible, aws
           command: |
             sudo apt update
             sudo apt install tar gzip unzip
@@ -398,13 +407,18 @@ workflows:
       - scan-backend:
           requires: [build-backend]
           context: RASNIX-SLACK  # using created circleci organization context vars(my slack credentials)
-      - deploy-infrastructure:
+      - deploy-infrastructure(backend):
+          requires: [test-backend, scan-backend, test-frontend, scan-frontend]
+          filters:
+            branches:
+              only: [master]
+      - deploy-infrastructure(frontend):
           requires: [test-backend, scan-backend, test-frontend, scan-frontend]
           filters:
             branches:
               only: [master]
       - configure-infrastructure:
-          requires: [deploy-infrastructure]
+          requires: [deploy-infrastructure(backend)]
       - run-migrations:
           requires: [configure-infrastructure]
       - deploy-frontend:
