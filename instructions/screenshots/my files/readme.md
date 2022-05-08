@@ -19,3 +19,7 @@
 
 ***
 #### 2. Utilize a Configuration Management Tool to Accomplish Deployment to Cloud-Based Servers
+
+- 
+	- ![SCREENSHOT05](SCREENSHOT05.png)
+	- Failure for the smoke test job.png ![SCREENSHOT06](SCREENSHOT06.png)
