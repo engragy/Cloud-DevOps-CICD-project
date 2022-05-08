@@ -24,7 +24,7 @@
 - name: "install dependencies."
   become: yes
   shell: |
-    curl -sL https://deb.nodesource.com/setup_13.8 | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     sudo apt install nodejs
     sudo apt install build-essential
 
