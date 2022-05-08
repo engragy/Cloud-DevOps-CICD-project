@@ -1,15 +1,21 @@
 ---
-- name: get extracted artifact into backend
-  unarchive: # unarchive a file in src to dest
+# - name: get extracted artifact into backend
+#   unarchive: # unarchive a file in src to dest
+#     src: ~/project/artifact.tar.gz
+#     dest: ~/  # remote EC2
+#     mode: 0755
+#     owner: ubuntu
+#     group: ubuntu
+- name: copy zipped artifact
+  become: yes
+  copy:
     src: ~/project/artifact.tar.gz
-    dest: ~/  # remote EC2
-    mode: 0755
-    owner: ubuntu
-    group: ubuntu
+    dest: ~/artifact.tar.gz  
 
-- name: Executing node
+- name: execute node
+  become: yes
   shell: |
-    ls -la  # verify files exists
+    tar -xvzf artifact.tar.gz
     npm install
     pm2 stop default
     pm2 start npm -- start

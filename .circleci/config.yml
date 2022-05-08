@@ -21,7 +21,7 @@ commands:  # commands that can be reused as needed in any job
 
 
 jobs:
-  build-frontend:
+  build-frontend:  # === CI - integrate code & build artifact (frontend)
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -38,7 +38,7 @@ jobs:
           paths: [frontend/node_modules]
           key: frontend-build
   
-  build-backend:
+  build-backend:  # === CI - integrate code & build artifact (backend)
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -55,7 +55,7 @@ jobs:
           paths: [backend/node_modules]
           key: backend-build
 
-  test-frontend:
+  test-frontend:  # === CI - run unit tests (frontend)
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -69,7 +69,7 @@ jobs:
             npm install
             npm run test
                 
-  test-backend:
+  test-backend:  # === CI - run unit tests (backend)
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -83,7 +83,7 @@ jobs:
             npm install
             npm run test
 
-  scan-frontend:
+  scan-frontend:  # === CI - dependencies vulnerability tests (frontend)
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -100,7 +100,7 @@ jobs:
             # If the "npm audit fix" command above could not fix all critical vulnerabilities, try “npm audit fix --force” again
             npm audit --audit-level=critical
 
-  scan-backend:
+  scan-backend:  # === CI - dependencies vulnerability tests (backend)
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -136,7 +136,7 @@ jobs:
             }
           event: fail
 
-  deploy-infrastructure:
+  deploy-infrastructure:  # === CD - provision in AWS (frontend & backend)
     docker:
       - image: amazon/aws-cli
     steps:
@@ -172,7 +172,7 @@ jobs:
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  configure-infrastructure:
+  configure-infrastructure:  # === CD - install and configure needed PKGs / dependencies 
     docker:
       - image: circleci/python  # image user=circleci, default working dir=/home/circleci/project
     steps:
@@ -201,7 +201,7 @@ jobs:
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  run-migrations:
+  run-migrations:  # === CD - 
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -250,7 +250,7 @@ jobs:
       - destroy-environment:
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  deploy-frontend:
+  deploy-frontend:  # === CD - 
     docker:
       - image: amazon/aws-cli
     steps:
