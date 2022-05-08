@@ -136,7 +136,7 @@ jobs:
             }
           event: fail
 
-  deploy-infrastructure(backend) :  # === CD - provision in AWS
+  deploy-infrastructure-backend :  # === CD - provision in AWS
     docker:
       - image: amazon/aws-cli
     steps:
@@ -164,7 +164,7 @@ jobs:
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  deploy-infrastructure(frontend):  # === CD - provision in AWS
+  deploy-infrastructure-frontend:  # === CD - provision in AWS
     docker:
       - image: amazon/aws-cli
     steps:
@@ -407,18 +407,18 @@ workflows:
       - scan-backend:
           requires: [build-backend]
           context: RASNIX-SLACK  # using created circleci organization context vars(my slack credentials)
-      - deploy-infrastructure(backend):
+      - deploy-infrastructure-backend:
           requires: [test-backend, scan-backend, test-frontend, scan-frontend]
           filters:
             branches:
               only: [master]
-      - deploy-infrastructure(frontend):
+      - deploy-infrastructure-frontend:
           requires: [test-backend, scan-backend, test-frontend, scan-frontend]
           filters:
             branches:
               only: [master]
       - configure-infrastructure:
-          requires: [deploy-infrastructure(backend)]
+          requires: [deploy-infrastructure-backend]
       - run-migrations:
           requires: [configure-infrastructure]
       - deploy-frontend:
