@@ -18,7 +18,27 @@ commands:  # commands that can be reused as needed in any job
             # empty and remove frontend S3 bucket
             aws s3 rm s3://udapeople-<<parameters.workflow-id>> --recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.workflow-id>>
-
+  
+  revert-migrations:
+    description: roll back any migrations that were successfully applied during a CI/CD workflow.
+    parameters:
+      workflow-id:
+        type: string
+    steps:
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            # check kvdb(used key), to get the migration state for the workflow id
+            echo "KVDB_URL is https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<<parameters.workflow-id>>"
+            SUCCESS = curl https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<<parameters.workflow-id>>
+            echo "the migrattion state = $SUCCESS"
+            if(( $SUCCESS==1 )); 
+            then
+              cd ~/project/backend
+              npm install
+              npm run migration:revert
+            fi
 
 jobs:
   build-frontend:  # === CI - integrate code & build artifact (frontend)
@@ -250,7 +270,7 @@ jobs:
       - run:
           name: Send migration results to memstash
           command: |
-            # if there is a match exit quitely
+            # if there is a match exit quitely (-q)
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               # output 1 to the key migration_${CIRCLE_WORKFLOW_ID:0:7} if there are migrations
@@ -373,7 +393,7 @@ jobs:
             echo "${API_URL}/api/status"
             if curl "${API_URL}/api/status" | grep "ok"
             then
-              exit 0
+              exit 1  ### change back
             else
               exit 1
             fi
@@ -390,6 +410,8 @@ jobs:
               exit 1
             fi
       - destroy-environment:  # rollback on failure
+          workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
 
@@ -418,7 +440,7 @@ workflows:
             branches:
               only: [master]
       - configure-infrastructure:
-          requires: [deploy-infrastructure-backend]
+          requires: [deploy-infrastructure-backend, deploy-infrastructure-frontend]
       - run-migrations:
           requires: [configure-infrastructure]
       - deploy-frontend:
