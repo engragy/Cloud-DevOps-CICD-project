@@ -195,8 +195,9 @@ jobs:
       - run:
           name: Configure server with Ansible
           command: |
-            cat .circleci/ansible/inventory.txt
-            ansible-playbook .circleci/ansible/configure-server.yml
+            cd .circleci/ansible
+            cat inventory.txt
+            ansible-playbook configure-server.yml
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
@@ -323,28 +324,28 @@ jobs:
       - destroy-environment:  # rollback on failure
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  smoke-test:
-    docker:
-      - image: circleci/python  # image user=circleci, default working dir=/home/circleci/project
-    steps:
-      # Checkout code from git
-      - run:
-          name: Install dependencies
-          command: |
-            # your code here
-      - run:
-          name: Get backend url
-          command: |
-            # your code here
-      - run:
-          name: Backend smoke test.
-          command: |
-            # your code here
-      - run:
-          name: Frontend smoke test.
-          command: |
-            # your code here
-      # Here's where you will add some code to rollback on failure  
+  # smoke-test:
+  #   docker:
+  #     - image: circleci/python  # image user=circleci, default working dir=/home/circleci/project
+  #   steps:
+  #     # Checkout code from git
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Get backend url
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Backend smoke test.
+  #         command: |
+  #           # your code here
+  #     - run:
+  #         name: Frontend smoke test.
+  #         command: |
+  #           # your code here
+  #     # Here's where you will add some code to rollback on failure  
 
 
 workflows:
