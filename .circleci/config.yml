@@ -343,7 +343,6 @@ jobs:
       - run:
           name: Backend smoke test
           command: |
-            echo "this is the save env var backend ip : ${BACKEND_IP}"
             export BACKEND_IP=$(aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
@@ -351,9 +350,9 @@ jobs:
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
-              return 0
+                return 0
             else
-              return 1
+                return 1
             fi
       - run:
           name: Frontend smoke test.
@@ -362,13 +361,13 @@ jobs:
             echo ${URL}
             if curl -s ${URL} | grep "Welcome"
             then
-              # Change this to 0 after the job fails
-              return 1
+                # Change this to 0 after the job fails
+                return 1
             else
-              return 1
+                return 1
             fi
-      - destroy-environment:  # rollback on failure
-          workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:  # rollback on failure
+      #     workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
 
 workflows:
