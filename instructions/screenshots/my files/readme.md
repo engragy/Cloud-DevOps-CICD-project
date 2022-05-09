@@ -6,6 +6,7 @@
 ***
 #### 1. Utilize Deployment Strategies to design and build CI/CD pipelines that support Continuous Delivery processes.
 
+- A public git repository with your project code. [URL01](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
 - Console output of various pre-deploy job failure scenarios:
 	- Build Jobs that failed because of compile errors. ![SCREENSHOT01](SCREENSHOT01.png)
 
@@ -20,6 +21,15 @@
 ***
 #### 2. Utilize a Configuration Management Tool to Accomplish Deployment to Cloud-Based Servers
 
-- 
-	- ![SCREENSHOT05](SCREENSHOT05.png)
-	- Failure for the smoke test job.png ![SCREENSHOT06](SCREENSHOT06.png)
+- Console output of appropriate failure for infrastructure creation job (using CloudFormation). ![SCREENSHOT05](SCREENSHOT05.png)
+- Console output of a smoke test job that is failing appropriately. ![SCREENSHOT06](SCREENSHOT06.png)
+- Console output of a successful rollback after a failed smoke test. ![SCREENSHOT07]()
+- Console output of successful promotion of new version to production in CloudFront. ![SCREENSHOT08]()
+
+- Console output of successful cleanup job that removes old S3 bucket and EC2 instance. [SCREENSHOT09]
+
+- Evidence that deploy jobs only happen on master branch. [SCREENSHOT10]
+
+- Evidence of deployed and functioning front-end application in an S3 bucket [URL02] and in CloudFront. [URL03]
+
+- Evidence of healthy back-end application. [URL04]
