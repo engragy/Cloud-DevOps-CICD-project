@@ -275,6 +275,8 @@ jobs:
             then
               # output 1 to the key migration_${CIRCLE_WORKFLOW_ID:0:7} if there are migrations
               curl https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+            else
+              curl https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment:
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -393,7 +395,7 @@ jobs:
             echo "${API_URL}/api/status"
             if curl "${API_URL}/api/status" | grep "ok"
             then
-              exit 1  ### change back
+              exit 0
             else
               exit 1
             fi
@@ -405,7 +407,7 @@ jobs:
             if curl -s ${URL} | grep "Welcome"
             then
               # Change this to 0 after the job fails
-              exit 0
+              exit 1
             else
               exit 1
             fi
