@@ -1,7 +1,12 @@
 # Project Solution Screenshots
-[URL01 - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
+[**URL01** - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
 
-[URL02 - public URL for your S3 Bucket (aka, your front-end)](http://udapeople-905bc5d.s3-website-us-east-1.amazonaws.com)
+[**URL02** - public URL for your S3 Bucket (aka, your front-end)](http://udapeople-5c5de6f.s3-website-us-east-1.amazonaws.com)
+
+[**URL03** - ](http://duowhff3flrmd.cloudfront.net)
+
+[**URL04** - ]()
+
 
 ***
 #### 1. Utilize Deployment Strategies to design and build CI/CD pipelines that support Continuous Delivery processes.
@@ -26,10 +31,10 @@
 - **[SCREENSHOT07]** Console output of a successful rollback after a failed smoke test. ![SCREENSHOT07](SCREENSHOT07.png)
 - **[SCREENSHOT08]** Console output of successful promotion of new version to production in CloudFront. ![SCREENSHOT08](SCREENSHOT08.png)
 
-- **[SCREENSHOT09]** Console output of successful cleanup job that removes old S3 bucket and EC2 instance. ![SCREENSHOT09]
+- **[SCREENSHOT09]** Console output of successful cleanup job that removes old S3 bucket and EC2 instance. ![SCREENSHOT09](SCREENSHOT09.png)
 
-- **[SCREENSHOT010]** Evidence that deploy jobs only happen on master branch. ![SCREENSHOT10]
+- **[SCREENSHOT010]** Evidence that deploy jobs only happen on master branch. ![SCREENSHOT10](SCREENSHOT10.png)
 
-- **[SCREENSHOT08]** Evidence of deployed and functioning front-end application in an S3 bucket [URL02] and in CloudFront. [URL03]
+- Evidence of deployed and functioning front-end application in an S3 bucket [URL02](http://udapeople-5c5de6f.s3-website-us-east-1.amazonaws.com) and in CloudFront. [URL03](http://duowhff3flrmd.cloudfront.net/#/employees)
 
-- Evidence of healthy back-end application. [URL04]
+- Evidence of healthy back-end application. [URL04]()
