@@ -30,8 +30,8 @@ commands:  # commands that can be reused as needed in any job
           when: on_fail
           command: |
             # check kvdb(used key), to get the migration state for the workflow id
-            echo "KVDB_URL is https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<<parameters.workflow-id>>"
-            SUCCESS = curl https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<<parameters.workflow-id>>
+            echo "KVDB_URL is https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<< parameters.workflow-id >>"
+            SUCCESS=$(curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<< parameters.workflow_id >>)
             echo "the migrattion state = $SUCCESS"
             if(( $SUCCESS==1 )); 
             then
@@ -39,6 +39,7 @@ commands:  # commands that can be reused as needed in any job
               npm install
               npm run migration:revert
             fi
+
 
 jobs:
   build-frontend:  # === CI - integrate code & build artifact (frontend)
@@ -274,9 +275,9 @@ jobs:
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               # output 1 to the key migration_${CIRCLE_WORKFLOW_ID:0:7} if there are migrations
-              curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             else
-              curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
       - destroy-environment:
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
