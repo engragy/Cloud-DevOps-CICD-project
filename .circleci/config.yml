@@ -31,7 +31,7 @@ commands:  # commands that can be reused as needed in any job
           command: |
             # check kvdb(used key), to get the migration state for the workflow id
             echo "KVDB_URL is https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<< parameters.workflow-id >>"
-            SUCCESS=$(curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<< parameters.workflow_id >>)
+            SUCCESS=$(curl -k https://kvdb.io/6QF3Cy5gQ9q7Q7DtVXVFxm/migration_<< parameters.workflow-id >>)
             echo "the migrattion state = $SUCCESS"
             if(( $SUCCESS==1 )); 
             then
