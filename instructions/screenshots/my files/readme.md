@@ -24,11 +24,11 @@
 - **[SCREENSHOT05]** Console output of appropriate failure for infrastructure creation job (using CloudFormation). ![SCREENSHOT05](SCREENSHOT05.png)
 - **[SCREENSHOT06]** Console output of a smoke test job that is failing appropriately. ![SCREENSHOT06](SCREENSHOT06.png)
 - **[SCREENSHOT07]** Console output of a successful rollback after a failed smoke test. ![SCREENSHOT07](SCREENSHOT07.png)
-- **[SCREENSHOT08]** Console output of successful promotion of new version to production in CloudFront. ![SCREENSHOT08]()
+- **[SCREENSHOT08]** Console output of successful promotion of new version to production in CloudFront. ![SCREENSHOT08](SCREENSHOT08.png)
 
-- **[SCREENSHOT09]** Console output of successful cleanup job that removes old S3 bucket and EC2 instance. [SCREENSHOT09]
+- **[SCREENSHOT09]** Console output of successful cleanup job that removes old S3 bucket and EC2 instance. ![SCREENSHOT09]
 
-- **[SCREENSHOT010]** Evidence that deploy jobs only happen on master branch. [SCREENSHOT10]
+- **[SCREENSHOT010]** Evidence that deploy jobs only happen on master branch. ![SCREENSHOT10]
 
 - **[SCREENSHOT08]** Evidence of deployed and functioning front-end application in an S3 bucket [URL02] and in CloudFront. [URL03]
 
