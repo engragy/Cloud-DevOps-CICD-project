@@ -449,40 +449,63 @@ jobs:
       - revert-migrations:
           workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  cleanup:  # after provisioning & deploying & testing new stack, clean up old stacks(S3 bucket)
+  # cleanup:  # after provisioning & deploying & testing new stack, clean up old stacks(S3 bucket)
+  #   docker:
+  #     - image: amazon/aws-cli
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Get old stack workflow id
+  #         command: |
+  #           # list all exports & Fetch the Old workflow ID
+  #           export OldWorkflowID=$(aws cloudformation \
+  #             list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+  #             --no-paginate --output text)
+  #           echo OldWorkflowID: "${OldWorkflowID}"
+  #           echo CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
+  #           # list all created stacks history & Fetch the stack names 
+  #           export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
+  #             --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
+  #           echo Stack names: "${STACKS[@]}"
+  #     - run:
+  #         name: Remove old stacks and files
+  #         command: |
+  #           # You can use any condition like: ! not equal , ~ equal
+  #           if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
+  #           # if [[ "${OldWorkflowID}" =~ "${STACKS[@]}"  ]]
+  #           # if [[ "${CIRCLE_WORKFLOW_ID:0:7}" =~ "${OldWorkflowID}" ]]
+  #           then
+  #             echo "============= Cleaning UP Old Stack ============="
+  #             aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+  #             aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
+  #             aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
+  #           else
+  #             echo "============= Can not Clean UP ============="
+  #           fi
+
+  cleanup:
     docker:
       - image: amazon/aws-cli
     steps:
       - checkout
       - run:
-          name: Get old stack workflow id
           command: |
-            # list all exports & Fetch the Old workflow ID
             export OldWorkflowID=$(aws cloudformation \
-              list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
-              --no-paginate --output text)
-            echo OldWorkflowID: "${OldWorkflowID}"
-            echo CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
-            # list all created stacks history & Fetch the stack names 
-            export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
+            list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+            --no-paginate --output text)
+
+            export ALLSTACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
               --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
-            echo Stack names: "${STACKS[@]}"
-      - run:
-          name: Remove old stacks and files
-          command: |
-            # You can use any condition like: ! not equal , ~ equal
-            if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
-            # if [[ "${OldWorkflowID}" =~ "${STACKS[@]}"  ]]
-            # if [[ "${CIRCLE_WORKFLOW_ID:0:7}" =~ "${OldWorkflowID}" ]]
+            
+            echo Stack names: "${ALLSTACKS[@]}"
+            echo Old Workflow Id: "${OldWorkflowID}"
+            echo New Workflow Id: "${CIRCLE_WORKFLOW_ID:0:7}"
+            if [[ "${ALLSTACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
-              echo "============= Cleaning UP Old Stack ============="
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
               aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
-            else
-              echo "============= Can not Clean UP ============="
             fi
-
 
 workflows:
   default:
