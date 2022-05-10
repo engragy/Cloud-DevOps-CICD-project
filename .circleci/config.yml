@@ -185,8 +185,8 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy-environment:  # rollback on failure
-          workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:  # rollback on failure
+      #     workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   deploy-infrastructure-frontend:  # === CD - provision in AWS
     docker:
@@ -202,8 +202,8 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-      - destroy-environment:  # rollback on failure
-          workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:  # rollback on failure
+      #     workflow-id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   configure-infrastructure:  # === CD - install and configure needed PKGs / dependencies 
     docker:
