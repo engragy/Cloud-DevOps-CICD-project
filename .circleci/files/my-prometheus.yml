@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Prometheus Monitoring EC2 instance with simple Security Group
+Parameters:
+  VPC:
+    Description: VPC to use.
+    Type: String
+    Default: vpc-05d81077abb660db4  # my default vpcID
+  KEY:
+    Description: SSH existing Key to use.
+    Type: String
+    Default: ubuntu  # my ssh key file
+
+
+Resources:
+  PrometheusSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: UdaPeople-Prometheus
+      GroupDescription: Allow SSH and ports needed for prometheus
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 9090
+        ToPort: 9090
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 9100
+        ToPort: 9100
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 9093
+        ToPort: 9093
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: -1
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
+  
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-000722651477bd39b  # ubuntu 20.04 for us-east
+      InstanceType: t2.micro
+      KeyName: !Ref KEY
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: 'true'
+          DeviceIndex: "0"
+          GroupSet: 
+          - Ref: PrometheusSecGroup
+          SubnetId: subnet-0b32fb70cbf493bf8  # default vpc-subnet(us-east-1b)
+      Tags:
+        - Key: Name
+          Value: my-prometheus

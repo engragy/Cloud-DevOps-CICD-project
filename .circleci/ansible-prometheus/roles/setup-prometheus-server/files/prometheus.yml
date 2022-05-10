@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'prometheus'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  
+  # using Prometheus Service Discovery feature, to Automatically add exporters on EC2 instance
+  # give credentials of IAM user with programatic access & ability to "EC2-read-only"
+  - job_name: 'EC2-node'
+    ec2_sd_configs:
+      - region: us-east-1
+        access_key: AKIA4E5T2P52FNSXPVGW
+        secret_key: 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
+        port: 9100

@@ -1,0 +1,25 @@
+---
+- name: create different user than root to run prometheus-node-exporter
+  become: yes
+  shell: useradd --no-create-home node_exporter
+
+- name: "install prometheus-node-exporter from binary."
+  become: yes
+  shell: |
+    wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
+    tar -xvzf node_exporter-1.3.1.linux-amd64.tar.gz
+    sudo cp node_exporter-1.3.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
+    rm -rf node_exporter-1.3.1.linux-amd64.tar.gz node_exporter-1.3.1.linux-amd64
+
+- name: Configure a service config file for prometheus node-exporter
+  become: yes
+  template:
+    src: "files/node-exporter.service"
+    dest: "/etc/systemd/system/node-exporter.service"
+
+- name: start prometheus node-exporter service
+  service:
+    name: node-exporter
+    state: started
+    enabled: yes
+    daemon_reload: yes

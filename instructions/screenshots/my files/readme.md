@@ -1,11 +1,12 @@
 # Project Solution Screenshots
+
 [**URL01** - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
 
-[**URL02** - public URL for your S3 Bucket (aka, your front-end)](http://udapeople-5c5de6f.s3-website-us-east-1.amazonaws.com)
+[**URL02** - functioning front-end application in S3](http://udapeople-1fc825e.s3-website-us-east-1.amazonaws.com)
 
-[**URL03** - ](http://duowhff3flrmd.cloudfront.net)
+[**URL03** - functioning front-end application in cloudfront](http://duowhff3flrmd.cloudfront.net)
 
-[**URL04** - ]()
+[**URL04** - healthy back-end application](http://54.204.95.96:3030/api/status)
 
 
 ***
@@ -35,6 +36,6 @@
 
 - **[SCREENSHOT010]** Evidence that deploy jobs only happen on master branch. ![SCREENSHOT10](SCREENSHOT10.png)
 
-- Evidence of deployed and functioning front-end application in an S3 bucket [URL02](http://udapeople-5c5de6f.s3-website-us-east-1.amazonaws.com) and in CloudFront. [URL03](http://duowhff3flrmd.cloudfront.net/#/employees)
+- Evidence of deployed and functioning front-end application in an S3 bucket [URL02](http://udapeople-1fc825e.s3-website-us-east-1.amazonaws.com) and in CloudFront. [URL03](http://duowhff3flrmd.cloudfront.net/#/employees)
 
-- Evidence of healthy back-end application. [URL04]()
+- Evidence of healthy back-end application. [URL04](http://54.204.95.96:3030/api/status)
