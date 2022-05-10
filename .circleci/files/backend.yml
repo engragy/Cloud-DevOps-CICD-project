@@ -32,14 +32,9 @@ Resources:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: ubuntu
+      # KeyName: ubuntu
+      Keyname: udapeople-key
       ImageId: ami-000722651477bd39b  # ubuntu 20.04 for us-east 
-      # NetworkInterfaces:
-      #   - AssociatePublicIpAddress: 'true'
-      #     DeviceIndex: "0"
-      #     GroupSet:
-      #     - Ref: InstanceSecurityGroup
-      #     SubnetId: subnet-0b32fb70cbf493bf8  # default vpc-subnet(us-east-1b)
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}

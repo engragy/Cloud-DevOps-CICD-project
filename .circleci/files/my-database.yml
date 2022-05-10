@@ -17,7 +17,8 @@ Parameters:
     Default: testing321
   defaultVPCID:
     Type: String
-    Default: vpc-05d81077abb660db4
+    # Default: vpc-05d81077abb660db4
+    Default: vpc-04df928645aaf750f
 
 
 Resources:

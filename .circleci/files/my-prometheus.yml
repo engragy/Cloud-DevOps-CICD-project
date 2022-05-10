@@ -4,11 +4,13 @@ Parameters:
   VPC:
     Description: VPC to use.
     Type: String
-    Default: vpc-05d81077abb660db4  # my default vpcID
+    # Default: vpc-05d81077abb660db4  # my default vpcID
+    Default: vpc-04df928645aaf750f
   KEY:
     Description: SSH existing Key to use.
     Type: String
-    Default: ubuntu  # my ssh key file
+    # Default: ubuntu  # my ssh key file
+    Default: udapeople-key  # my ssh key file
 
 
 Resources:
@@ -52,7 +54,8 @@ Resources:
           DeviceIndex: "0"
           GroupSet: 
           - Ref: PrometheusSecGroup
-          SubnetId: subnet-0b32fb70cbf493bf8  # default vpc-subnet(us-east-1b)
+          # SubnetId: subnet-0b32fb70cbf493bf8  # default vpc-subnet(us-east-1b)
+          SubnetId: subnet-04f0ff1e90fcc1b4f  # default vpc-subnet(us-east-1b)
       Tags:
         - Key: Name
           Value: my-prometheus
