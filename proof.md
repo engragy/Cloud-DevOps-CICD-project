@@ -2,11 +2,11 @@
 
 [**URL01** - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
 
-[**URL02** - functioning front-end application in S3](http://udapeople-1fc825e.s3-website-us-east-1.amazonaws.com)
+[**URL02** - functioning front-end application in S3](http://udapeople-cfc642b.s3-website-us-east-1.amazonaws.com)
 
-[**URL03** - functioning front-end application in cloudfront](http://duowhff3flrmd.cloudfront.net)
+[**URL03** - functioning front-end application in cloudfront](http://dkpgtz0xple6z.cloudfront.net)
 
-[**URL04** - healthy back-end application](http://54.204.95.96:3030/api/status)
+[**URL04** - healthy back-end application](http://54.224.146.136:3030/api/status)
 
 [**URL05** - Evidence of Prometheus Server](http://44.204.35.8:9090) 
 
@@ -47,17 +47,17 @@
 	![SCREENSHOT10](SCREENSHOT10.png)
 
 - Evidence of deployed and functioning front-end application 
-	- in an S3 bucket [URL02](http://udapeople-1fc825e.s3-website-us-east-1.amazonaws.com) 
-	- in CloudFront. [URL03](http://duowhff3flrmd.cloudfront.net/#/employees)
+	- in an S3 bucket [URL02](http://udapeople-cfc642b.s3-website-us-east-1.amazonaws.com) 
+	- in CloudFront. [URL03](http://dkpgtz0xple6z.cloudfront.net)
 		![URL03_SCREENSHOT](URL03_SCREENSHOT.png)
 
-- **[URL04_SCREENSHOT]** Evidence of healthy back-end application. [URL04](http://54.204.95.96:3030/api/status) 
+- **[URL04_SCREENSHOT]** Evidence of healthy back-end application. [URL04](http://54.224.146.136:3030/api/status) 
 	![URL04](URL04_SCREENSHOT.png)
 
 ***
 ### Surface critical server errors for diagnosis using centralized logging.
 
-- **[URL05_SCREENSHOT]** Evidence of Prometheus Server. [URL05](http://44.204.35.8:9090) 
+- **[URL05_SCREENSHOT]** Evidence of Prometheus Server. [URL05](http://44.204.35.8:9090)
 	![URL05](URL05_SCREENSHOT.png)
 
 - **[SCREENSHOT11]** Evidence that Prometheus is monitoring EC2 instances
