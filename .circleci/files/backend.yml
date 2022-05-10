@@ -38,7 +38,7 @@ Resources:
         - AssociatePublicIpAddress: 'true'
           DeviceIndex: "0"
           GroupSet:
-          - Ref: PrometheusSecGroup
+          - Ref: InstanceSecurityGroup
           SubnetId: subnet-0b32fb70cbf493bf8  # default vpc-subnet(us-east-1b)
       Tags:
         - Key: Name
