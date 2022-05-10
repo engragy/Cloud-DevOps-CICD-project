@@ -14,8 +14,8 @@ scrape_configs:
   - job_name: 'Prometheus-EC2-node'
     ec2_sd_configs:
       - region: us-east-1
-        access_key: AKIA6ND7KV5TZIYP3N2Q
-        secret_key: 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
+        access_key: 
+        secret_key: 
         port: 9100
 
 rule_files:
