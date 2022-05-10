@@ -1,5 +1,5 @@
 Description: >
-  UdaPeople frontend stack.
+  frontend stack for udapeople-project
 
 Parameters:
   ID:

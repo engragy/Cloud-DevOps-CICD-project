@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  AWS CloudFormation Template for creating an Amazon RDS DB instance
+  RDS PostgreSQL DB instance for udapeople-project
 
 Parameters:
   dbInstClass:

@@ -1,0 +1,51 @@
+---
+- name: "install Alertmanager from binary."
+  shell: |
+    wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz
+    tar -xvzf alertmanager-0.24.0.linux-amd64.tar.gz
+
+- name: create directories to host Alertmanager configuration and host its data
+  become: yes
+  shell: |
+    cp alertmanager-0.24.0.linux-amd64/alertmanager /usr/local/bin
+    cp alertmanager-0.24.0.linux-amd64/amtool /usr/local/bin/
+    mkdir /var/lib/alertmanager
+
+- name: remove downloaded Alertmanager
+  shell: rm -rf alertmanager*
+
+- name: Add Alertmanager configuration
+  become: yes
+  template:
+    src: "files/alertmanager.yml"
+    dest: "/etc/prometheus/alertmanager.yml"
+
+- name: Configure Alertmanager as a service 
+  become: yes
+  template:
+    src: "files/alertmanager.service"
+    dest: "/etc/systemd/system/alertmanager.service"
+
+- name: start Alertmanager service
+  service:
+    name: alertmanager
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: Create a Rule for Alertmanager
+  become: yes
+  template:
+    src: "files/rules.yml"
+    dest: "/etc/prometheus/rules.yml"
+
+- name: change the permissions of added (directories, files and binaries)
+  become: yes
+  shell: chown -R prometheus:prometheus /etc/prometheus
+
+- name: restart Prometheus service
+  service:
+    name: prometheus
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

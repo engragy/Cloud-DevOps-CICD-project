@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Prometheus Monitoring EC2 instance with simple Security Group
+Description: Prometheus Monitoring EC2 instance for udapeople-project
 Parameters:
   VPC:
     Description: VPC to use.
