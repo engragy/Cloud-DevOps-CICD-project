@@ -33,7 +33,7 @@ Resources:
       SecurityGroups:
         - Ref: InstanceSecurityGroup
       # KeyName: ubuntu
-      Keyname: udapeople-key
+      KeyName: udapeople-key
       ImageId: ami-000722651477bd39b  # ubuntu 20.04 for us-east 
       Tags:
         - Key: Name
