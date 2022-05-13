@@ -5,20 +5,20 @@
   become: true
   
   pre_tasks:
-    # - name: "update apt packages."
-    #   become: yes
-    #   apt:
-    #     update_cache: yes
-    # - name: "upgrade packages"
-    #   become: yes
-    #   apt:
-    #     upgrade: "yes"
-    # - name: remove dependencies that are no longer required
-    #   become: yes
-    #   apt:
-    #     autoremove: yes
+    - name: "update apt packages."
+      become: yes
+      apt:
+        update_cache: yes
+    - name: "upgrade packages"
+      become: yes
+      apt:
+        upgrade: "yes"
+    - name: remove dependencies that are no longer required
+      become: yes
+      apt:
+        autoremove: yes
   
   roles:
-    # - setup-prometheus-server
-    # - setup-prometheus-exporter
+    - setup-prometheus-server
+    - setup-prometheus-exporter
     - setup-prometheus-Alertmanager
