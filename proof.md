@@ -2,11 +2,11 @@
 
 [**URL01** - public GitHub repository for udapeople project](https://github.com/engragy/Cloud-DevOps-CICD-project/tree/master/)
 
-[**URL02** - functioning front-end application in S3](http://udapeople-cfc642b.s3-website-us-east-1.amazonaws.com)
+[**URL02** - functioning front-end application in S3](http://udapeople-7d0d21b.s3-website-us-east-1.amazonaws.com)
 
 [**URL03** - functioning front-end application in cloudfront](http://dkpgtz0xple6z.cloudfront.net)
 
-[**URL04** - healthy back-end application](http://54.224.146.136:3030/api/status)
+[**URL04** - healthy back-end application](http://3.212.191.121:3030/api/status)
 
 [**URL05** - Evidence of Prometheus Server](http://44.204.35.8:9090) 
 
@@ -47,11 +47,11 @@
 	![SCREENSHOT10](SCREENSHOT10.png)
 
 - Evidence of deployed and functioning front-end application 
-	- in an S3 bucket [URL02](http://udapeople-cfc642b.s3-website-us-east-1.amazonaws.com) 
+	- in an S3 bucket [URL02](http://udapeople-7d0d21b.s3-website-us-east-1.amazonaws.com)
 	- in CloudFront. [URL03](http://dkpgtz0xple6z.cloudfront.net)
 		![URL03_SCREENSHOT](URL03_SCREENSHOT.png)
 
-- **[URL04_SCREENSHOT]** Evidence of healthy back-end application. [URL04](http://54.224.146.136:3030/api/status) 
+- **[URL04_SCREENSHOT]** Evidence of healthy back-end application. [URL04](http://3.212.191.121:3030/api/status) 
 	![URL04](URL04_SCREENSHOT.png)
 
 ***
